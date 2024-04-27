@@ -1,0 +1,384 @@
+Traceback (most recent call last):
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 11, in <module>
+    import pygame
+ModuleNotFoundError: No module named 'pygame'
+Traceback (most recent call last):
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 11, in <module>
+    import pygame
+ModuleNotFoundError: No module named 'pygame'
+Traceback (most recent call last):
+  File "/home/kevin/.local/lib/python3.10/site-packages/pystray/_base.py", line 328, in inner
+    callback(self)
+  File "/home/kevin/.local/lib/python3.10/site-packages/pystray/_base.py", line 453, in __call__
+    return self._action(icon, self)
+  File "/home/kevin/.local/lib/python3.10/site-packages/pystray/_base.py", line 548, in wrapper0
+    return action()
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_systray.py", line 51, in <lambda>
+    pystray.MenuItem('Exit', lambda: on_exit(icon, cgpt.cgpt_pid)))
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_systray.py", line 21, in on_exit
+    os.kill(pid, 9)
+ProcessLookupError: [Errno 3] No such process
+Traceback (most recent call last):
+  File "/home/kevin/.local/lib/python3.10/site-packages/pystray/_base.py", line 328, in inner
+    callback(self)
+  File "/home/kevin/.local/lib/python3.10/site-packages/pystray/_base.py", line 453, in __call__
+    return self._action(icon, self)
+  File "/home/kevin/.local/lib/python3.10/site-packages/pystray/_base.py", line 548, in wrapper0
+    return action()
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_systray.py", line 51, in <lambda>
+    pystray.MenuItem('Exit', lambda: on_exit(icon, cgpt.cgpt_pid)))
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_systray.py", line 21, in on_exit
+    os.kill(pid, 9)
+ProcessLookupError: [Errno 3] No such process
+Traceback (most recent call last):
+  File "/home/kevin/.local/lib/python3.10/site-packages/pystray/_base.py", line 328, in inner
+    callback(self)
+  File "/home/kevin/.local/lib/python3.10/site-packages/pystray/_base.py", line 453, in __call__
+    return self._action(icon, self)
+  File "/home/kevin/.local/lib/python3.10/site-packages/pystray/_base.py", line 548, in wrapper0
+    return action()
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_systray.py", line 51, in <lambda>
+    pystray.MenuItem('Exit', lambda: on_exit(icon, cgpt.cgpt_pid)))
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_systray.py", line 21, in on_exit
+    os.kill(pid, 9)
+ProcessLookupError: [Errno 3] No such process
+X connection to :0 broken (explicit kill or server shutdown).
+Sending request to ChatGPT
+Exception in thread Thread-2 (<lambda>):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 128, in <lambda>
+    gemini_thread = threading.Thread(target=lambda: self.get_gemini_response(user_input_value,
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 140, in get_gemini_response
+    response = self.chat.send_message(f'[Persona for gemini: {prompt_value}], [User text: {user_input_value}]', 
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 426, in send_message
+    response = self.model.generate_content(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 219, in generate_content
+    self._client = client.get_default_generative_client()
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 229, in get_default_generative_client
+    return _client_manager.get_default_client("generative")
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 161, in get_default_client
+    client = self.make_client(name)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 121, in make_client
+    client = cls(**self.client_config)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 433, in __init__
+    self._transport = Transport(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/transports/grpc.py", line 150, in __init__
+    super().__init__(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/transports/base.py", line 98, in __init__
+    credentials, _ = google.auth.default(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/auth/_default.py", line 691, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 18.27507185935974 seconds to respond
+Sending request to ChatGPT
+Exception in thread Thread-4 (<lambda>):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 128, in <lambda>
+    gemini_thread = threading.Thread(target=lambda: self.get_gemini_response(user_input_value,
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 140, in get_gemini_response
+    response = self.chat.send_message(f'[Persona for gemini: {prompt_value}], [User text: {user_input_value}]', 
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 426, in send_message
+    response = self.model.generate_content(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 219, in generate_content
+    self._client = client.get_default_generative_client()
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 229, in get_default_generative_client
+    return _client_manager.get_default_client("generative")
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 161, in get_default_client
+    client = self.make_client(name)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 121, in make_client
+    client = cls(**self.client_config)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 433, in __init__
+    self._transport = Transport(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/transports/grpc.py", line 150, in __init__
+    super().__init__(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/transports/base.py", line 98, in __init__
+    credentials, _ = google.auth.default(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/auth/_default.py", line 691, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 31.98650622367859 seconds to respond
+Sending request to ChatGPT
+Exception in thread Thread-6 (<lambda>):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 128, in <lambda>
+    gemini_thread = threading.Thread(target=lambda: self.get_gemini_response(user_input_value,
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 140, in get_gemini_response
+    response = self.chat.send_message(f'[Persona for gemini: {prompt_value}], [User text: {user_input_value}]', 
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 426, in send_message
+    response = self.model.generate_content(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 219, in generate_content
+    self._client = client.get_default_generative_client()
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 229, in get_default_generative_client
+    return _client_manager.get_default_client("generative")
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 161, in get_default_client
+    client = self.make_client(name)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 121, in make_client
+    client = cls(**self.client_config)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 433, in __init__
+    self._transport = Transport(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/transports/grpc.py", line 150, in __init__
+    super().__init__(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/transports/base.py", line 98, in __init__
+    credentials, _ = google.auth.default(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/auth/_default.py", line 691, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 25.346794843673706 seconds to respond
+Sending request to ChatGPT
+Exception in thread Thread-8 (<lambda>):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 128, in <lambda>
+    gemini_thread = threading.Thread(target=lambda: self.get_gemini_response(user_input_value,
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 140, in get_gemini_response
+    response = self.chat.send_message(f'[Persona for gemini: {prompt_value}], [User text: {user_input_value}]', 
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 426, in send_message
+    response = self.model.generate_content(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 219, in generate_content
+    self._client = client.get_default_generative_client()
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 229, in get_default_generative_client
+    return _client_manager.get_default_client("generative")
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 161, in get_default_client
+    client = self.make_client(name)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 121, in make_client
+    client = cls(**self.client_config)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 433, in __init__
+    self._transport = Transport(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/transports/grpc.py", line 150, in __init__
+    super().__init__(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/transports/base.py", line 98, in __init__
+    credentials, _ = google.auth.default(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/auth/_default.py", line 691, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 26.756782293319702 seconds to respond
+Sending request to ChatGPT
+Exception in thread Thread-10 (<lambda>):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 128, in <lambda>
+    gemini_thread = threading.Thread(target=lambda: self.get_gemini_response(user_input_value,
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 140, in get_gemini_response
+    response = self.chat.send_message(f'[Persona for gemini: {prompt_value}], [User text: {user_input_value}]', 
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 426, in send_message
+    response = self.model.generate_content(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 219, in generate_content
+    self._client = client.get_default_generative_client()
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 229, in get_default_generative_client
+    return _client_manager.get_default_client("generative")
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 161, in get_default_client
+    client = self.make_client(name)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/client.py", line 121, in make_client
+    client = cls(**self.client_config)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 433, in __init__
+    self._transport = Transport(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/transports/grpc.py", line 150, in __init__
+    super().__init__(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/transports/base.py", line 98, in __init__
+    credentials, _ = google.auth.default(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/auth/_default.py", line 691, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 54.26297569274902 seconds to respond
+X connection to :0 broken (explicit kill or server shutdown).
+X connection to :0 broken (explicit kill or server shutdown).
+Sending request to ChatGPT
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 23.753706455230713 seconds to respond
+Sending request to ChatGPT
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 15.646045446395874 seconds to respond
+Sending request to ChatGPT
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 26.51493787765503 seconds to respond
+Sending request to ChatGPT
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 30.255083799362183 seconds to respond
+Sending request to ChatGPT
+Exception in thread Thread-15 (<lambda>):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 128, in <lambda>
+    gemini_thread = threading.Thread(target=lambda: self.get_gemini_response(user_input_value,
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 140, in get_gemini_response
+    response = self.chat.send_message(f'[Persona for gemini: {prompt_value}], [User text: {user_input_value}]', 
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 426, in send_message
+    response = self.model.generate_content(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 232, in generate_content
+    response = self._client.generate_content(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 566, in generate_content
+    response = rpc(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 212, in _retry_error_helper
+    raise final_exc from source_exc
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 144, in retry_target
+    result = target()
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/timeout.py", line 120, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InternalServerError: 500 An internal error has occurred. Please retry or report in https://developers.generativeai.google/guide/troubleshooting
+OpenAI `gpt-4-turbo-preview` took 1.0 minutesand 6.998926639556885 seconds to respond
+Sending request to ChatGPT
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 55.83526587486267 seconds to respond
+Sending request to ChatGPT
+OpenAI `gpt-4-turbo-preview` took 1.0 minutesand 1.3684618473052979 seconds to respond
+Sending request to ChatGPT
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 29.469314575195312 seconds to respond
+Sending request to ChatGPT
+OpenAI `gpt-4-turbo-preview` took 1.0 minutesand 52.2947518825531 seconds to respond
+Sending request to ChatGPT
+OpenAI `gpt-4-turbo-preview` took 0.0 minutesand 44.58566927909851 seconds to respond
+X connection to :0 broken (explicit kill or server shutdown).
+Sending request to ChatGPT
+Exception in thread Thread-1 (<lambda>):
+Traceback (most recent call last):
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpx/_transports/default.py", line 69, in map_httpcore_exceptions
+    yield
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpx/_transports/default.py", line 233, in handle_request
+    resp = self._pool.handle_request(req)
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpcore/_sync/connection_pool.py", line 216, in handle_request
+    raise exc from None
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpcore/_sync/connection_pool.py", line 196, in handle_request
+    response = connection.handle_request(
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpcore/_sync/connection.py", line 99, in handle_request
+    raise exc
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpcore/_sync/connection.py", line 76, in handle_request
+    stream = self._connect(request)
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpcore/_sync/connection.py", line 122, in _connect
+    stream = self._network_backend.connect_tcp(**kwargs)
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpcore/_backends/sync.py", line 205, in connect_tcp
+    with map_exceptions(exc_map):
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ConnectError: [Errno -2] Name or service not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kevin/.local/lib/python3.10/site-packages/openai/_base_client.py", line 926, in _request
+    response = self._client.send(
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpx/_client.py", line 914, in send
+    response = self._send_handling_auth(
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpx/_client.py", line 942, in _send_handling_auth
+    response = self._send_handling_redirects(
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpx/_client.py", line 979, in _send_handling_redirects
+    response = self._send_single_request(request)
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpx/_client.py", line 1015, in _send_single_request
+    response = transport.handle_request(request)
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpx/_transports/default.py", line 232, in handle_request
+    with map_httpcore_exceptions():
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/kevin/.local/lib/python3.10/site-packages/httpx/_transports/default.py", line 86, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ConnectError: [Errno -2] Name or service not known
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 126, in <lambda>
+    cgpt_thread = threading.Thread(target=lambda: self.get_chatgpt_response(user_input_value,
+  File "/home/kevin/.local/lib/python3.10/site-packages/valdec/decorators.py", line 88, in wrapper
+    result = func(*args, **kwargs)
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 197, in get_chatgpt_response
+    response = openai.chat.completions.create(
+  File "/home/kevin/.local/lib/python3.10/site-packages/openai/_utils/_utils.py", line 275, in wrapper
+    return func(*args, **kwargs)
+  File "/home/kevin/.local/lib/python3.10/site-packages/openai/resources/chat/completions.py", line 667, in create
+    return self._post(
+  File "/home/kevin/.local/lib/python3.10/site-packages/openai/_base_client.py", line 1208, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+  File "/home/kevin/.local/lib/python3.10/site-packages/openai/_base_client.py", line 897, in request
+    return self._request(
+  File "/home/kevin/.local/lib/python3.10/site-packages/openai/_base_client.py", line 950, in _request
+    return self._retry_request(
+  File "/home/kevin/.local/lib/python3.10/site-packages/openai/_base_client.py", line 1021, in _retry_request
+    return self._request(
+  File "/home/kevin/.local/lib/python3.10/site-packages/openai/_base_client.py", line 950, in _request
+    return self._retry_request(
+  File "/home/kevin/.local/lib/python3.10/site-packages/openai/_base_client.py", line 1021, in _retry_request
+    return self._request(
+  File "/home/kevin/.local/lib/python3.10/site-packages/openai/_base_client.py", line 960, in _request
+    raise APIConnectionError(request=request) from err
+openai.APIConnectionError: Connection error.
+Exception in thread Thread-2 (<lambda>):
+Traceback (most recent call last):
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 76, in error_remapped_callable
+    return callable_(*args, **kwargs)
+  File "/home/kevin/.local/lib/python3.10/site-packages/grpc/_channel.py", line 1176, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+  File "/home/kevin/.local/lib/python3.10/site-packages/grpc/_channel.py", line 1005, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "DNS resolution failed for generativelanguage.googleapis.com:443: C-ares status is not ARES_SUCCESS qtype=A name=generativelanguage.googleapis.com is_balancer=0: Could not contact DNS servers"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"DNS resolution failed for generativelanguage.googleapis.com:443: C-ares status is not ARES_SUCCESS qtype=A name=generativelanguage.googleapis.com is_balancer=0: Could not contact DNS servers", grpc_status:14, created_time:"2024-03-20T11:35:25.406568658+07:00"}"
+>
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 144, in retry_target
+    result = target()
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/timeout.py", line 120, in func_with_timeout
+    return func(*args, **kwargs)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ServiceUnavailable: 503 DNS resolution failed for generativelanguage.googleapis.com:443: C-ares status is not ARES_SUCCESS qtype=A name=generativelanguage.googleapis.com is_balancer=0: Could not contact DNS servers
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 128, in <lambda>
+    gemini_thread = threading.Thread(target=lambda: self.get_gemini_response(user_input_value,
+  File "/home/kevin/Coding/Projects/chatgpt_multi_tool/src/cmt_main.py", line 140, in get_gemini_response
+    response = self.chat.send_message(f'[Persona for gemini: {prompt_value}], [User text: {user_input_value}]', 
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 426, in send_message
+    response = self.model.generate_content(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/generativeai/generative_models.py", line 232, in generate_content
+    response = self._client.generate_content(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/ai/generativelanguage_v1beta/services/generative_service/client.py", line 566, in generate_content
+    response = rpc(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/gapic_v1/method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 293, in retry_wrapped_func
+    return retry_target(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/retry/retry_unary.py", line 153, in retry_target
+    _retry_error_helper(
+  File "/home/kevin/.local/lib/python3.10/site-packages/google/api_core/retry/retry_base.py", line 221, in _retry_error_helper
+    raise final_exc from source_exc
+google.api_core.exceptions.RetryError: Timeout of 60.0s exceeded, last exception: 503 DNS resolution failed for generativelanguage.googleapis.com:443: C-ares status is not ARES_SUCCESS qtype=A name=generativelanguage.googleapis.com is_balancer=0: Could not contact DNS servers
+X connection to :0 broken (explicit kill or server shutdown).
