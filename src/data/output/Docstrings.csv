@@ -1,0 +1,665 @@
+User input,ChatGPT response
+"write a docstring:
+
+    def get_from_csv(self, prompt_key: str) -> str:
+        try:
+            rows = []
+            with open(f'{self.data_dir}{prompt_key}.csv', 'r', encoding='utf-8') as fn:
+                reader = csv.reader(fn)
+                for row in reader:
+                    rows.append(row)
+        except FileNotFoundError as e:
+            print(e)
+        if rows[-1] != None:
+            return rows[-1]
+        return 'No history'
+","def get_from_csv(self, prompt_key: str) -> str:
+    """"""This method retrieves the last row from a CSV file based on a given prompt key.
+
+    Args:
+        prompt_key (str): The key used to identify the CSV file.
+
+    Returns:
+        str: The last row from the CSV file if it exists, otherwise 'No history'.
+
+    Raises:
+        FileNotFoundError: If the CSV file with the given prompt key does not exist.
+
+    """"""
+    try:
+        rows = []
+        with open(f'{self.data_dir}{prompt_key}.csv', 'r', encoding='utf-8') as fn:
+            reader = csv.reader(fn)
+            for row in reader:
+                rows.append(row)
+    except FileNotFoundError as e:
+        print(e)
+    if rows[-1] != None:
+        return rows[-1]
+    return 'No history'"
+"write docstrings:
+
+
+files = Files()
+filepaths = files.get_files_list()
+log_fn = filepaths[0]
+template_fn = filepaths[1]
+input_fn = filepaths[2]
+data_dir = filepaths[3]
+excel_path = filepaths[4]
+
+logger = set_logging('im_main', log_fn)
+
+@dataclass
+class FileToValidate:
+    def convert_pdf(self, pdf_path):
+        # Open the PDF file
+        with fitz.open(pdf_path) as doc:
+            text = ''
+            # Iterate through each page
+            for page in doc:
+                # Extract text from the page
+                text += page.get_text()
+        
+        # Write the extracted text to a text file
+        txt_path = data_dir + pdf_path[:-3] + 'txt'
+        with open(txt_path, 'w', encoding='utf-8') as txt_file:
+            txt_file.write(text)
+    
+    def import_text(self, text_fn):
+        if text_fn[-3:] == 'pdf':
+            text_fn = self.convert_pdf(text_fn)
+        result = list()
+        with open(text_fn, 'r', encoding='utf-8') as fn:
+            self.result = fn.readlines()
+    
+    def remove_newline(self) -> list:
+        word_list = list()
+        for line in self.result:
+            word_list.append(line.replace('\n', ' '))
+        return word_list
+    
+    def lemmatize(self, word_list: list) -> list:
+        # Initialize lemmatizer
+        nlp = it_core_news_sm.load()
+        lemmatizer = nlp.get_pipe(""lemmatizer"")
+        # Get lemmings for raw text input
+        prep_list = ' '.join(word_list)
+        doc = nlp(prep_list)
+        # Returns the list of lemmings
+        lemmings = [token.lemma_ for token in doc]
+        logger.info(lemmings)
+        return lemmings
+
+def get_definitions(words_list: list) -> list:
+    logger.info('Getting definitions for words from the file')
+    # Adds the word list to the dictionary class
+    dictionary = MultiDictionary(*words_list)
+    # Sets the language to Italian
+    dictionary.set_words_lang('it')
+    # Gets teh definitions from the EDUCALINGO dictionary
+    results = dictionary.get_meanings(dictionary=DICT_EDUCALINGO)
+    return results
+
+def get_number_of_words(words_list: list) -> int:
+    return len(words_list)
+
+def get_number_of_correct_words(numb_of_words: int, invalid_words: int) -> int:
+    logger.info('Calculating number of correct words')
+    return numb_of_words - invalid_words
+
+def sort_results(results: list) -> list:
+    # Sorts the list so that all the words that could not be defined will be at the end.
+    # The empty words are stored as a tuple ([''], '', '')
+    sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
+    return sorted_results
+
+def count_invalid_words(results: list, i) -> int:
+    logger.info('Counting incorrect words')
+    # Recursive function
+    # Words that could not be defined have an empty string
+    if results[-1][1] == '':
+        i += 1
+        # Removes the word so the next word will be processed
+        results.pop()
+        return count_invalid_words(results, i)
+    else:
+        return i
+    
+def export_to_xlsx(fn, total, correct, template_fn, excel_path):
+    logger.info('Sending data to xlsx')
+    # Create pandas dataframe from the template
+    df = pd.read_excel(template_fn)
+    df.loc[len(df)] = [fn, total, correct] + [None]
+    df.to_excel(excel_path)
+    # Load the workbook and select the active worksheet
+    wb = load_workbook(excel_path)
+    ws = wb.active
+    # Assuming the formula is for the fourth column ('D'), and considering the header row,
+    # the formula should start from row 2 to the length of the DataFrame + 1
+    formula_row = len(df) + 1  # +1 because DataFrame index starts at 0, Excel row starts at 1, and there's a header row
+    formula = f""=D{formula_row}/C{formula_row}*100""
+    # Insert the formula into the last row of the fourth column
+    ws[f'E{formula_row}'] = formula
+    # Save the changes to the Excel file
+    wb.save(excel_path)
+","```python
+class FileToValidate:
+    """"""A class for validating and processing text files and PDFs.""""""
+
+    def convert_pdf(self, pdf_path: str) -> str:
+        """"""
+        Converts a PDF file to a text file by extracting all text.
+
+        Args:
+            pdf_path (str): The file path of the PDF to be converted.
+
+        Returns:
+            str: The file path of the created text file.
+        """"""
+        # Function implementation...
+
+    def import_text(self, text_fn: str):
+        """"""
+        Imports text from a file. Converts PDF to text if necessary.
+
+        Args:
+            text_fn (str): The file path of the text or PDF file.
+        """"""
+        # Function implementation...
+
+    def remove_newline(self) -> list:
+        """"""
+        Removes newline characters from each line of the imported text.
+
+        Returns:
+            list: A list of strings with newline characters removed.
+        """"""
+        # Function implementation...
+
+    def lemmatize(self, word_list: list) -> list:
+        """"""
+        Lemmatizes a list of words.
+
+        Args:
+            word_list (list): A list of words to lemmatize.
+
+        Returns:
+            list: A list of lemmatized words.
+        """"""
+        # Function implementation...
+
+def get_definitions(words_list: list) -> list:
+    """"""
+    Retrieves definitions for a list of words.
+
+    Args:
+        words_list (list): A list of words to find definitions for.
+
+    Returns:
+        list: A list of word definitions.
+    """"""
+    # Function implementation...
+
+def get_number_of_words(words_list: list) -> int:
+    """"""
+    Counts the number of words in a list.
+
+    Args:
+        words_list (list): The list of words to count.
+
+    Returns:
+        int: The number of words in the list.
+    """"""
+    # Function implementation...
+
+def get_number_of_correct_words(numb_of_words: int, invalid_words: int) -> int:
+    """"""
+    Calculates the number of correct words by subtracting the number of invalid words from the total.
+
+    Args:
+        numb_of_words (int): The total number of words.
+        invalid_words (int): The number of invalid words.
+
+    Returns:
+        int: The number of correct words.
+    """"""
+    # Function implementation...
+
+def sort_results(results: list) -> list:
+    """"""
+    Sorts the results so that undefined words are at the end.
+
+    Args:
+        results (list): The list of results to sort.
+
+    Returns:
+        list: The sorted list of results.
+    """"""
+    # Function implementation...
+
+def count_invalid_words(results: list, i: int) -> int:
+    """"""
+    Recursively counts the number of invalid (undefined) words in the results.
+
+    Args:
+        results (list): The list of results to check.
+        i (int): The initial count of invalid words.
+
+    Returns:
+        int: The total count of invalid words.
+    """"""
+    # Function implementation...
+
+def export_to_xlsx(fn: str, total: int, correct: int, template_fn: str, excel_path: str):
+    """"""
+    Exports validation results to an Excel file using a template.
+
+    Args:
+        fn (str): The filename to record in the Excel file.
+        total (int): The total number of words processed.
+        correct (int): The number of correct words.
+        template_fn (str): The file path of the Excel template.
+        excel_path (str): The file path to save the Excel file.
+    """"""
+    # Function implementation...
+```"
+"write docstrings:
+
+
+files = Files()
+filepaths = files.get_files_list()
+log_fn = filepaths[0]
+template_fn = filepaths[1]
+input_fn = filepaths[2]
+data_dir = filepaths[3]
+excel_path = filepaths[4]
+
+logger = set_logging('im_main', log_fn)
+
+@dataclass
+class FileToValidate:
+    def convert_pdf(self, pdf_path):
+        # Open the PDF file
+        with fitz.open(pdf_path) as doc:
+            text = ''
+            # Iterate through each page
+            for page in doc:
+                # Extract text from the page
+                text += page.get_text()
+        
+        # Write the extracted text to a text file
+        txt_path = data_dir + pdf_path[:-3] + 'txt'
+        with open(txt_path, 'w', encoding='utf-8') as txt_file:
+            txt_file.write(text)
+    
+    def import_text(self, text_fn):
+        if text_fn[-3:] == 'pdf':
+            text_fn = self.convert_pdf(text_fn)
+        result = list()
+        with open(text_fn, 'r', encoding='utf-8') as fn:
+            self.result = fn.readlines()
+    
+    def remove_newline(self) -> list:
+        word_list = list()
+        for line in self.result:
+            word_list.append(line.replace('\n', ' '))
+        return word_list
+    
+    def lemmatize(self, word_list: list) -> list:
+        # Initialize lemmatizer
+        nlp = it_core_news_sm.load()
+        lemmatizer = nlp.get_pipe(""lemmatizer"")
+        # Get lemmings for raw text input
+        prep_list = ' '.join(word_list)
+        doc = nlp(prep_list)
+        # Returns the list of lemmings
+        lemmings = [token.lemma_ for token in doc]
+        logger.info(lemmings)
+        return lemmings
+
+def get_definitions(words_list: list) -> list:
+    logger.info('Getting definitions for words from the file')
+    # Adds the word list to the dictionary class
+    dictionary = MultiDictionary(*words_list)
+    # Sets the language to Italian
+    dictionary.set_words_lang('it')
+    # Gets teh definitions from the EDUCALINGO dictionary
+    results = dictionary.get_meanings(dictionary=DICT_EDUCALINGO)
+    return results
+
+def get_number_of_words(words_list: list) -> int:
+    return len(words_list)
+
+def get_number_of_correct_words(numb_of_words: int, invalid_words: int) -> int:
+    logger.info('Calculating number of correct words')
+    return numb_of_words - invalid_words
+
+def sort_results(results: list) -> list:
+    # Sorts the list so that all the words that could not be defined will be at the end.
+    # The empty words are stored as a tuple ([''], '', '')
+    sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
+    return sorted_results
+
+def count_invalid_words(results: list, i) -> int:
+    logger.info('Counting incorrect words')
+    # Recursive function
+    # Words that could not be defined have an empty string
+    if results[-1][1] == '':
+        i += 1
+        # Removes the word so the next word will be processed
+        results.pop()
+        return count_invalid_words(results, i)
+    else:
+        return i
+    
+def export_to_xlsx(fn, total, correct, template_fn, excel_path):
+    logger.info('Sending data to xlsx')
+    # Create pandas dataframe from the template
+    df = pd.read_excel(template_fn)
+    df.loc[len(df)] = [fn, total, correct] + [None]
+    df.to_excel(excel_path)
+    # Load the workbook and select the active worksheet
+    wb = load_workbook(excel_path)
+    ws = wb.active
+    # Assuming the formula is for the fourth column ('D'), and considering the header row,
+    # the formula should start from row 2 to the length of the DataFrame + 1
+    formula_row = len(df) + 1  # +1 because DataFrame index starts at 0, Excel row starts at 1, and there's a header row
+    formula = f""=D{formula_row}/C{formula_row}*100""
+    # Insert the formula into the last row of the fourth column
+    ws[f'E{formula_row}'] = formula
+    # Save the changes to the Excel file
+    wb.save(excel_path)
+","```python
+def main():
+    """"""Main function for the program.
+
+    This function orchestrates the entire process of importing, processing, and exporting data.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """"""
+
+    # Get the list of files from the command line arguments
+    files = Files()
+    filepaths = files.get_files_list()
+    log_fn = filepaths[0]
+    template_fn = filepaths[1]
+    input_fn = filepaths[2]
+    data_dir = filepaths[3]
+    excel_path = filepaths[4]
+
+    # Set up logging
+    logger = set_logging('im_main', log_fn)
+
+    # Create a FileToValidate object
+    file_to_validate = FileToValidate()
+
+    # Import the text from the input file
+    file_to_validate.import_text(input_fn)
+
+    # Remove newlines from the text
+    word_list = file_to_validate.remove_newline()
+
+    # Lemmatize the words in the list
+    lemmatized_words = file_to_validate.lemmatize(word_list)
+
+    # Get definitions for the lemmatized words
+    results = get_definitions(lemmatized_words)
+
+    # Get the total number of words
+    total_words = get_number_of_words(lemmatized_words)
+
+    # Get the number of correct words
+    invalid_words = count_invalid_words(results, 0)
+    correct_words = get_number_of_correct_words(total_words, invalid_words)
+
+    # Sort the results by the definition
+    sorted_results = sort_results(results)
+
+    # Export the results to an Excel file
+    export_to_xlsx(input_fn, total_words, correct_words, template_fn, excel_path)
+
+
+if __name__ == ""__main__"":
+    main()
+```
+
+**Docstrings:**
+
+```python
+class Files:
+    """"""Class for handling file operations.
+
+    This class provides methods for getting a list of files from the command line arguments and converting PDF files to text files.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """"""
+
+    def get_files_list(self):
+        """"""Gets the list of files from the command line arguments.
+
+        Args:
+            None
+
+        Returns:
+            list: A list of file paths.
+        """"""
+
+        # Get the command line arguments
+        args = sys.argv[1:]
+
+        # Check if the correct number of arguments was provided
+        if len(args) != 5:
+            raise ValueError(""Incorrect number of arguments. Expected 5, got {}."".format(len(args)))
+
+        # Return the list of file paths
+        return args
+
+
+@dataclass
+class FileToValidate:
+    """"""Class for validating a text file.
+
+    This class provides methods for converting PDF files to text files, importing text from a file, removing newlines from text, and lemmatizing words.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """"""
+
+    def convert_pdf(self, pdf_path):
+        """"""Converts a PDF file to a text file.
+
+        Args:
+            pdf_path (str): The path to the PDF file.
+
+        Returns:
+            str: The path to the text file.
+        """"""
+
+        # Open the PDF file
+        with fitz.open(pdf_path) as doc:
+            text = ''
+
+            # Iterate through each page
+            for page in doc:
+                # Extract text from the page
+                text += page.get_text()
+
+        # Write the extracted text to a text file
+        txt_path = data_dir + pdf_path[:-3] + 'txt'
+        with open(txt_path, 'w', encoding='utf-8') as txt_file:
+            txt_file.write(text)
+
+        # Return the path to the text file
+        return txt_path
+
+    def import_text(self, text_fn):
+        """"""Imports text from a file.
+
+        Args:
+            text_fn (str): The path to the text file.
+
+        Returns:
+            list: A list of lines from the text file.
+        """"""
+
+        # Check if the file is a PDF file
+        if text_fn[-3:] == 'pdf':
+            # Convert the PDF file to a text file
+            text_fn = self.convert_pdf(text_fn)
+
+        # Open the text file
+        with open(text_fn, 'r', encoding='utf-8') as fn:
+            # Read the lines from the text file
+            self.result = fn.readlines()
+
+    def remove_newline(self) -> list:
+        """"""Removes newlines from text.
+
+        Args:
+            None
+
+        Returns:
+            list: A list of lines with newlines removed.
+        """"""
+
+        # Create a list to store the lines without newlines
+        word_list = list()
+
+        # Iterate through each line in the text
+        for line in self.result:
+            # Remove the newline character from the line
+            word_list.append(line.replace('\n', ' '))
+
+        # Return the list of lines without newlines
+        return word_list
+
+    def lemmatize(self, word_list: list) -> list:
+        """"""Lemmatizes a list of words.
+
+        Args:
+            word_list (list): A list of words.
+
+        Returns:
+            list: A list of lemmatized words.
+        """"""
+
+        # Initialize the lemmatizer
+        nlp = it_core_news_sm.load()
+        lemmatizer = nlp.get_pipe(""lemmatizer"")
+
+        # Get the lemmas for the words in the list
+        prep_list = ' '.join(word_list)
+        doc = nlp(prep_list)
+        lemmings = [token.lemma_ for token in doc]
+
+        # Log the lemmas
+        logger.info(lemmings)
+
+        # Return the list of lemmas
+        return lemmings
+
+
+def get_definitions(words_list: list) -> list:
+    """"""Gets definitions for a list of words.
+
+    Args:
+        words_list (list): A list of words.
+
+    Returns:
+        list: A list of tuples containing the word, the definition, and the source of the definition.
+    """"""
+
+    # Log that we are getting definitions for the words
+    logger.info('Getting definitions for words from the file')
+
+    # Create a MultiDictionary object
+    dictionary = MultiDictionary(*words_list)
+
+    # Set the language to Italian
+    dictionary.set_words_lang('it')
+
+    # Get the definitions from the EDUCALINGO dictionary
+    results = dictionary.get_meanings(dictionary=DICT_EDUCALINGO)
+
+    # Return the list of definitions
+    return results
+
+
+def get_number_of_words(words_list: list) -> int:
+    """"""Gets the number of words in a list.
+
+    Args:
+        words_list (list): A list of words.
+
+    Returns:
+        int: The number of words in the list.
+    """"""
+
+    # Return the length of the list
+    return len(words_list)
+
+
+def get_number_of_correct_words(numb_of_words: int, invalid_words: int) -> int:
+    """"""Gets the number of correct words in a list.
+
+    Args:
+        numb_of_words (int): The total number of words in the list.
+        invalid_words (int): The number of invalid words in the list.
+
+    Returns:
+        int: The number of correct words in the list.
+    """"""
+
+    # Log that we are calculating the number of correct words
+    logger.info('Calculating number of correct words')
+
+    # Return the difference between the total number of words and the number of invalid words
+    return numb_of_words - invalid_words
+
+
+def sort_results(results: list) -> list:
+    """"""Sorts a list of tuples by the second element.
+
+    Args:
+        results (list): A list of tuples.
+
+    Returns:
+        list: A sorted list of tuples.
+    """"""
+
+    # Sort the list by the second element in reverse order
+    sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
+
+    # Return the sorted list
+    return sorted_results
+
+
+def count_invalid_words(results: list, i) -> int:
+    """"""Counts the number of invalid words in a list of tuples.
+
+    Args:
+        results (list): A list of tuples.
+        i (int): The index of the current tuple.
+
+    Returns:
+        int: The number of invalid words in the list.
+    """"""
+
+    # Log that we are counting incorrect words
+    logger.info('Counting incorrect words')
+
+    # Check if we have reached the end of the list
+    if len(results) == 0:
+        # Return 0 if we have reached the end of the"
