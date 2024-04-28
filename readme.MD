@@ -1,3 +1,4 @@
+<div style="background-color: #ffa458; padding: 10px;">
 # What This Is:
 
 A tool to query ChatGPT and Google Gemini at the same time. Comes with a set of basic prompts.
@@ -37,3 +38,4 @@ A tool to query ChatGPT and Google Gemini at the same time. Comes with a set of 
 ## Tested on:
 - Windows 10
 - Linux Mint/Plasma desktop
+</div>
