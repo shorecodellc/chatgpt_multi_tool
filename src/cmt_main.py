@@ -4,8 +4,8 @@
 #kevin@shorecode.org
 
 #todo:
-#unit tests
 #readme
+#docstrings
 
 import time
 import pygame
@@ -180,12 +180,13 @@ class ChatGptWindow:
             i = 0
             while window_count == len(self.windows):
                 time.sleep(3)
+                print(i)
                 i += 1
                 if i > 40:
                     break
             self.gemini_response = response.text
-        except:            
-            pass
+        except Exception as e:            
+            print(e)
 
     def add_gemini_to_nb(self, response, title):
         try:
@@ -284,7 +285,7 @@ and {elapsed_time % 60} seconds to respond')
         self.progress_bar.pack(pady=10)
 
     @validate
-    def temperature_dropdown(self):
+    def temperature_dropdown_init(self):
         """
         Creates and displays a dropdown widget for selecting the temperature setting.
         """    
@@ -463,7 +464,7 @@ and {elapsed_time % 60} seconds to respond')
         """        
         self.prompts_dropdown()
         self.user_input()
-        self.temperature_dropdown()
+        self.temperature_dropdown_init()
         self.num_outputs_dropdown()
         self.models_dropdown()
         self.progress_bar_init()
@@ -487,6 +488,7 @@ and {elapsed_time % 60} seconds to respond')
         new_window.geometry('670x565')
         # Add the window to the list
         self.windows.append(new_window)
+        print(f'windows: {self.windows}')
         new_window.title(f"{prompt_key} Results #{len(self.windows)}")
         # Creates a notebook using an index of the amount of windows
         # created to get the last window in the list
