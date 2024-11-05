@@ -1,3 +1,4 @@
+![Alt text](https://raw.githubusercontent.com/shorecodeorg/chatgpt_multi_tool/refs/heads/master/cmt.png "CHATGPT MULTI TOOL")
 # What This Is:
 
 A tool to query ChatGPT and Google Gemini at the same time. Comes with a set of basic prompts.
