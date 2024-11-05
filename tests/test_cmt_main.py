@@ -14,34 +14,42 @@ class TestChatGptWindow(unittest.TestCase):
     def test_init(self):
         self.assertIsNotNone(self.chat_gpt_window.window)
         self.assertIsNotNone(self.chat_gpt_window.files)
-        self.assertIsNotNone(self.chat_gpt_window.logger)
+        self.assertIsNotNone(self.chat_gpt_window.logger)        
+        self.assertIsNotNone(self.chat_gpt_window.sound_effect)
 
-    @patch('openai.ChatCompletion.create')
+    @patch('openai.chat.completions.create')
     def test_get_chatgpt_response(self, mock_create):
-        # Arrange
-        mock_create.return_value = 'mock response'
-        window = ChatGptWindow()
+        # Arrange        
+        mock_response = MagicMock()
+        mock_response.message.content = 'mock response'
+        mock_create.return_value.choices = [mock_response]        
+        self.chat_gpt_window = ChatGptWindow()
+        self.chat_gpt_window.progress_bar = MagicMock()
+        self.chat_gpt_window.create_window = MagicMock()
         user_input_value = 'test input'
         prompt_value = 'test prompt'
         temperature_value = 0.5
         outputs_value = 1
+        model = 'gpt-4o'
+        self.chat_gpt_window.prompts = {'test': 'test prompt'}
 
         # Act
-        response = window.get_chatgpt_response(user_input_value, prompt_value, temperature_value, outputs_value)
+        response = self.chat_gpt_window.get_chatgpt_response(user_input_value, prompt_value, temperature_value, outputs_value, model)        
 
-        # Assert
+        # Assert        
         mock_create.assert_called_once_with(
-            model='gpt',
+            model='gpt-4o',
             messages=[
                 {'role': 'system', 'content': prompt_value},
+                {'role': 'user', 'content': ''},
+                {'role': 'assistant', 'content': ''},
                 {'role': 'user', 'content': user_input_value},
-                {'role': 'assistant', 'content': window.message_history[prompt_key][-1]}
             ],
             n=outputs_value,
             stop=None,
             temperature=temperature_value
         )
-        self.assertEqual(response, 'mock response')
+        self.assertEqual(response[0].message.content, 'mock response')
 
     @patch('threading.Thread')
     def test_execute_submit(self, mock_thread):
