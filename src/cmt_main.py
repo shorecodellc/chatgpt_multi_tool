@@ -4,7 +4,6 @@
 #kevin@shorecode.org
 
 #todo:
-#readme
 #docstrings
 
 import time
@@ -15,6 +14,11 @@ from pprint import pprint
 import os
 import yaml
 import csv
+from google import genai as genai_image
+from google.genai import types
+from PIL import Image
+from io import BytesIO
+import base64
 import google.generativeai as genai
 import tkinter as tk
 from tkinter import ttk
@@ -60,7 +64,7 @@ class ChatGptWindow:
     # icon fp
     icon_fp = filepaths[4]
     sound_fp = filepaths[6]
-    
+
 
     logger = set_logging('cmt', 'cmt.log')
     # Init main window and theme it
@@ -83,7 +87,7 @@ class ChatGptWindow:
 
     pygame.mixer.init()
     sound_effect = pygame.mixer.Sound(sound_fp)
-    
+
     gemini_response = str()
 
     # Sets prompts
@@ -98,7 +102,7 @@ class ChatGptWindow:
     notebooks = []
     # Sets OpenAI key
     open_ai_key = os.getenv('OPENAI_API_KEY')
-    
+
     gem_model = genai.GenerativeModel('gemini-pro')
     chat = gem_model.start_chat(history=[])
 
@@ -112,7 +116,7 @@ class ChatGptWindow:
         # Gets number of responses to request from combobox
         outputs_value = self.outputs_dropdown.get()
         # Gets user's text input
-        user_input_value = self.text_entry.get("1.0", tk.END)
+        user_input_value = self.text_entry.get("1.0", tk.END)[:50000]
         # Deletes the contents of hte user entry text box
         self.text_entry.delete("1.0", tk.END)
         # Deletes old contents and adds the recent prompt to the history box
@@ -127,22 +131,49 @@ class ChatGptWindow:
         if model == 'dall-e-3':
             self.logger.info('Sending request to Dalle')
             dalle_thread = threading.Thread(target=lambda: self.get_dalle_response(user_input_value,
-                        int(outputs_value), model))
+                                                                                   int(outputs_value), model))
+            imagen_thread = threading.Thread(target=lambda: self.get_imagen_response(user_input_value,
+                                                                                   int(outputs_value), "gemini-2.0-flash-exp-image-generation"))            
             dalle_thread.start()
+            imagen_thread.start()
         else:
             self.logger.info(f'Sending request to {model} and Gemini')
             # Retrieves the response from ChatGPT
             cgpt_thread = threading.Thread(target=lambda: self.get_chatgpt_response(user_input_value,
-                            prompt_value, float(temperature_value), int(outputs_value), model))
+                                                                                    prompt_value, float(temperature_value), int(outputs_value), model))
             gemini_thread = threading.Thread(target=lambda: self.get_gemini_response(user_input_value,
-                            prompt_value, float(temperature_value), int(outputs_value)))
+                                                                                     prompt_value, float(temperature_value), int(outputs_value)))
             gemini_thread.start()
             cgpt_thread.start()
-    
+
     def keypad_execute(self, event):
         self.execute_submit()
         return 'break'
-    
+
+    def get_imagen_response(self, user_input, outputs_value, model):
+
+
+        client = genai_image.Client()
+
+        contents = user_input
+
+        response = client.models.generate_content(
+            model="gemini-2.0-flash-exp-image-generation",
+            contents=contents,
+            config=types.GenerateContentConfig(
+                response_modalities=['Text', 'Image']
+            )
+        )
+        date = str(datetime.datetime.now())
+        for part in response.candidates[0].content.parts:
+            if part.text is not None:
+                print(part.text)
+            elif part.inline_data is not None:                
+                image = Image.open(BytesIO((part.inline_data.data)))
+                image.save(f'data/output/{date}.png')
+        self.gemini_response = 'file://' + os.path.abspath(f'data/output/{date}.png')
+     
+
     def get_dalle_response(self, user_input_value, outputs_value, model):
         self.progress_bar.start(11)  # Start the progress bar animation
         sizes = ['1792x1024', '1024x1024'] 
@@ -152,7 +183,7 @@ class ChatGptWindow:
                 response = openai.images.generate(
                     model=model,
                     prompt=user_input_value,
-                    n=outputs_value,
+                    n=1,
                     size=size,
                     quality="hd"
                 )        
@@ -162,20 +193,21 @@ class ChatGptWindow:
             except openai.AuthenticationError as e:
                 self.text_entry.insert(tk.END, f'Failed auth, error: {e}')
             except Exception as e:
-                self.create_window(int(outputs_value), e, 'Dalle Error')
+                print(e)
+                self.create_window(int(outputs_value), [e]*int(1), 'Dalle Error')
         # Play the sound
         self.sound_effect.play()
         # Creates a window to display the results
-        result1 = [r.data[0].url for r in responses]
-        result = ['\n\n'.join(result1)]
+        result = [response.data[0].url]
         self.progress_bar.stop()  # Stop the progress bar animation
+
         self.create_window(int(outputs_value), result, 'Dalle')
 
     def get_gemini_response(self, user_input_value, prompt_value, temperature_value, outputs_value):
         try:            
             window_count = len(self.windows)
             response = self.chat.send_message(f'[Persona for gemini: {prompt_value}], [User text: {user_input_value}]', 
-                    generation_config=genai.types.GenerationConfig(candidate_count=outputs_value, temperature=temperature_value))
+                                              generation_config=genai.types.GenerationConfig(candidate_count=outputs_value, temperature=temperature_value))
             self.to_csv(user_input_value, [response.text], prompt_value, int(outputs_value))
             i = 0
             while window_count == len(self.windows):
@@ -205,7 +237,7 @@ class ChatGptWindow:
 
     @validate
     def get_chatgpt_response(self, user_input_value: str, prompt_value: str,
-                                temperature_value: float, outputs_value: int, model: str) -> list:
+                             temperature_value: float, outputs_value: int, model: str) -> list:
         """
         Sends a request to ChatGPT based on the user's input and selected options, and handles the response.
 
@@ -238,29 +270,29 @@ class ChatGptWindow:
             response = openai.chat.completions.create(
                 model=model,
                 messages=[{'role': 'system', 'content': prompt_value},
-                {'role': 'user', 'content': user_message},
+                          {'role': 'user', 'content': user_message},
                 {'role': 'assistant', 'content': assistant_message},
                 {'role': 'user', 'content': user_input_value}],
                 n=outputs_value,
                 stop=None,
                 temperature=temperature_value
             )
-    
+
             end_time = time.time()
             elapsed_time = end_time - start_time
             self.logger.info(f'OpenAI `{model}` took {elapsed_time//60} minutes\
 and {elapsed_time % 60} seconds to respond')
-    
+
             try:                
                 # Adds the prompt to the history
                 self.message_history[prompt_key]['user'].append(user_input_value)
-        
+
                 # Adds the response and prompt to csv
                 self.to_csv(user_input_value, response.choices, 
                             prompt_value, int(outputs_value))
             except:
                 pass
-        
+
             # Play the sound
             self.sound_effect.play()
             result = [r.message.content.strip() for r in response.choices]
@@ -268,7 +300,7 @@ and {elapsed_time % 60} seconds to respond')
             self.create_window(int(outputs_value), result, prompt_key)
             self.progress_bar.stop()  # Stop the progress bar animation
             return response.choices
-        
+
         except openai.RateLimitError as e:
             self.text_entry.insert(tk.END, f'Likely out of OpenAI tokens, error: {e}')
         except openai.AuthenticationError as e:
@@ -281,7 +313,7 @@ and {elapsed_time % 60} seconds to respond')
         """        
         # Create a progress bar widget
         self.progress_bar = ttk.Progressbar(self.window, orient='horizontal', 
-                                       length=300, mode='indeterminate')
+                                            length=300, mode='indeterminate')
         self.progress_bar.pack(pady=10)
 
     @validate
@@ -294,7 +326,7 @@ and {elapsed_time % 60} seconds to respond')
         temperature_label.pack(pady=3)
         temperature_values = [i/10 for i in range(1, 11)]
         self.temperature_dropdown = ttk.Combobox(self.window, values=temperature_values,
-                    width=3, state='readonly')
+                                                 width=3, state='readonly')
         # Sets the default value
         self.temperature_dropdown.set(temperature_values[2])
         self.temperature_dropdown.pack(pady=3)
@@ -309,7 +341,7 @@ and {elapsed_time % 60} seconds to respond')
         outputs_label.pack(pady=3)
         outputs_values = [i for i in range(1, 6)]
         self.outputs_dropdown = ttk.Combobox(self.window, values=outputs_values, width=3,
-                                state='readonly')
+                                             state='readonly')
         # Sets the default value
         self.outputs_dropdown.set(outputs_values[0])
         self.outputs_dropdown.pack(pady=3)
@@ -338,7 +370,7 @@ and {elapsed_time % 60} seconds to respond')
         prompts_label = ttk.Label(self.window, text="Prompt:")
         prompts_label.pack(pady=5)
         self.prompts_dropdown = ttk.Combobox(self.window, 
-                values=list(self.prompts.keys()), width=70, state='readonly', height=len(self.prompts.keys()))
+                                             values=list(self.prompts.keys()), width=70, state='readonly', height=len(self.prompts.keys()))
         # Sets the default value
         self.prompts_dropdown.set(list(self.prompts.keys())[0])
         self.prompts_dropdown.pack(pady=3)
@@ -360,7 +392,7 @@ and {elapsed_time % 60} seconds to respond')
         scrollbar = ttk.Scrollbar(frame, command=self.text_entry.yview)
         scrollbar.pack(side=tk.RIGHT, fill='y')
         self.text_entry.pack(ipadx=100, pady=5)
-        
+
         self.text_entry.bind("<Control-Key-a>", lambda event: self.select_all(event, self.text_entry))
         self.text_entry.bind("<KP_Enter>", self.keypad_execute)
         # Enable undo on the text widget
@@ -369,7 +401,7 @@ and {elapsed_time % 60} seconds to respond')
         self.text_entry.bind('<Control-z>', lambda event: text_widget.edit_undo())    
         # Optional: Bind Ctrl+Shift+Z or Ctrl+Y to redo operation
         self.text_entry.bind('<Control-y>', lambda event: text_widget.edit_redo())
-        
+
         # Configure the Text widget to use the Scrollbar
         self.text_entry.configure(yscrollcommand=scrollbar.set)
 
@@ -420,7 +452,7 @@ and {elapsed_time % 60} seconds to respond')
             self.message_history[prompt_key]['assistant'].append(cgpt_response[0])
         except:
             pass
-        
+
         for i in range(output_values):
             # Adds a frame to the notebook tabs
             tab = ttk.Frame(self.notebooks[window_id])
@@ -431,9 +463,9 @@ and {elapsed_time % 60} seconds to respond')
             # Enable undo on the text widget
             result.config(undo=True)        
             # Bind Ctrl+Z to the undo operation
-            result.bind('<Control-z>', lambda event: text_widget.edit_undo())        
+            result.bind('<Control-z>', lambda event: result.edit_undo())        
             # Optional: Bind Ctrl+Shift+Z or Ctrl+Y to redo operation
-            result.bind('<Control-y>', lambda event: text_widget.edit_redo())            
+            result.bind('<Control-y>', lambda event: result.edit_redo())            
             # Create a Scrollbar widget
             scrollbar = ttk.Scrollbar(tab, command=result.yview, orient='vertical')
             scrollbar.grid(column=5, row=0, sticky='ns')
@@ -443,9 +475,9 @@ and {elapsed_time % 60} seconds to respond')
             # responses
             try:
                 response = cgpt_response[i]
-            except AttributeError as e:
+            except AttributeError:
                 response = cgpt_response[i]
-            result.insert(tk.END, response)
+            result.insert(tk.END, response.replace('**', ''))
         self.add_gemini_to_nb(self.gemini_response, 'Gemini')
 
     @validate
@@ -533,7 +565,7 @@ and {elapsed_time % 60} seconds to respond')
     def save_to_txt(self, nb: ttk.Notebook):
         """
          Saves the content of the active tab in a notebook widget to a text file.
- 
+
          Parameters:
              nb (ttk.Notebook): The notebook widget containing the content to save.
          """
@@ -551,16 +583,16 @@ and {elapsed_time % 60} seconds to respond')
     @validate
     def get_from_csv(self, prompt_key: str) -> list:
         """This method retrieves the last row from a CSV file based on a given prompt key.
-     
+
          Args:
              prompt_key (str): The key used to identify the CSV file.
-     
+
          Returns:
              str: The last row from the CSV file if it exists, otherwise 'No history'.
-     
+
          Raises:
              FileNotFoundError: If the CSV file with the given prompt key does not exist.
-     
+
          """        
         try:
             rows = []
