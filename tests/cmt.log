@@ -1,0 +1,37 @@
+2024-11-05 17:40:19,188 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-05 17:41:16,450 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-05 17:42:13,736 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-05 17:42:13,740 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.9839532375335693 seconds to respond
+2024-11-05 17:42:57,700 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.0002472400665283203 seconds to respond
+2024-11-05 17:43:55,168 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.000308990478515625 seconds to respond
+2024-11-05 17:46:44,708 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00024962425231933594 seconds to respond
+2024-11-05 17:47:49,368 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.000247955322265625 seconds to respond
+2024-11-05 17:48:20,178 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00023865699768066406 seconds to respond
+2024-11-05 17:49:15,142 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00022792816162109375 seconds to respond
+2024-11-05 17:50:37,011 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.0002434253692626953 seconds to respond
+2024-11-05 17:50:48,810 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.0002372264862060547 seconds to respond
+2024-11-05 17:52:47,424 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00023674964904785156 seconds to respond
+2024-11-05 17:56:34,194 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.0002777576446533203 seconds to respond
+2024-11-05 17:58:10,377 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00024056434631347656 seconds to respond
+2024-11-05 17:59:31,215 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.0002372264862060547 seconds to respond
+2024-11-05 17:59:43,430 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00024056434631347656 seconds to respond
+2024-11-05 17:59:50,926 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00024008750915527344 seconds to respond
+2024-11-05 18:01:05,789 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00023937225341796875 seconds to respond
+2024-11-05 18:04:58,042 - INFO - Sending request to gpt-4o-mini and Gemini
+2024-11-05 18:07:04,490 - INFO - Sending request to gpt-4o-mini and Gemini
+2024-11-05 18:07:28,600 - INFO - Sending request to gpt-4o-mini and Gemini
+2024-11-05 18:10:16,221 - INFO - Sending request to gpt-4o-mini and Gemini
+2024-11-05 18:10:16,251 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00022530555725097656 seconds to respond
+2024-11-05 18:12:00,695 - INFO - Sending request to gpt-4o-mini and Gemini
+2024-11-05 18:12:00,724 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00023508071899414062 seconds to respond
+2024-11-05 18:43:34,278 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.0002529621124267578 seconds to respond
+2024-11-05 18:44:23,154 - INFO - Sending request to gpt-4o-mini and Gemini
+2024-11-05 18:44:23,185 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00023818016052246094 seconds to respond
+2024-11-05 18:49:34,922 - INFO - Sending request to gpt-4o-mini and Gemini
+2024-11-05 18:49:34,951 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.0002295970916748047 seconds to respond
+2024-11-05 18:59:08,357 - INFO - Sending request to gpt-4o-mini and Gemini
+2024-11-05 18:59:08,387 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00024271011352539062 seconds to respond
+2024-11-05 19:03:37,799 - INFO - Sending request to gpt-4o-mini and Gemini
+2024-11-05 19:03:37,832 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00030803680419921875 seconds to respond
+2024-11-05 19:31:06,313 - INFO - Sending request to gpt-4o-mini and Gemini
+2024-11-05 19:31:06,343 - INFO - OpenAI `gpt-4o` took 0.0 minutesand 0.00022983551025390625 seconds to respond
