@@ -1,3 +1,7 @@
 /src/data/output/*
+!/src/data/output/.gitkeep
+
 /src/__pycache__/*
+
 /src/logging/*
+!/src/logging/.gitkeep
